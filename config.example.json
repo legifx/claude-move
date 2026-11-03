@@ -1,0 +1,50 @@
+{
+  "default_target": "server",
+  "launcher": "auto",
+  "picker": [
+    "fzf",
+    "--ansi",
+    "--no-sort",
+    "--reverse",
+    "--height=60%",
+    "--prompt=claude-move > "
+  ],
+  "exclude": [
+    "node_modules/",
+    ".venv/",
+    "venv/",
+    "__pycache__/",
+    ".pytest_cache/",
+    ".mypy_cache/",
+    ".ruff_cache/",
+    ".next/",
+    ".nuxt/",
+    ".svelte-kit/",
+    "target/debug/",
+    "target/release/",
+    ".gradle/",
+    "Library/",
+    "Temp/"
+  ],
+  "ignore_dirs": [],
+  "machines": {
+    "workstation": {
+      "hostnames": ["my-workstation"],
+      "home": "/home/alice",
+      "projects_dir": "/home/alice/Projects",
+      "ssh": null,
+      "herdr_machine": null,
+      "herdr_socket": null
+    },
+    "server": {
+      "hostnames": ["my-homeserver"],
+      "home": "/home/server",
+      "projects_dir": "/home/server",
+      "ssh": "server",
+      "herdr_machine": null,
+      "herdr_socket": null,
+      "reverse_herdr_socket": null,
+      "claude_args": ["--dangerously-skip-permissions"]
+    }
+  }
+}

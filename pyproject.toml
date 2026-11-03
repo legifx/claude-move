@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "claude-move"
+version = "0.1.0"
+description = "Move Claude Code sessions between machines — sync working tree, rewrite transcript paths, resume in remote Herdr"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.8"
+authors = [{name = "legifx"}]
+dependencies = []
+
+[project.scripts]
+claude-move = "claude_move.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["claude_move*"]

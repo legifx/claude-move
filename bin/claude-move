@@ -1,0 +1,16 @@
+#!/usr/bin/env python3
+"""Direct executable entry point for claude-move (stdlib only, no virtualenv needed)."""
+
+import os
+import sys
+
+# Resolve symlinks so `~/.local/bin/claude-move -> .../bin/claude-move` finds `claude_move/`
+_REAL_SCRIPT = os.path.realpath(__file__)
+_REPO_ROOT = os.path.dirname(os.path.dirname(_REAL_SCRIPT))
+if _REPO_ROOT not in sys.path:
+    sys.path.insert(0, _REPO_ROOT)
+
+from claude_move.cli import main
+
+if __name__ == "__main__":
+    sys.exit(main())

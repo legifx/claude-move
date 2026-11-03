@@ -1,7 +1,14 @@
 .env
 .env.*
 !.env.example
-node_modules/
 __pycache__/
+*.py[cod]
 .venv/
+venv/
 dist/
+build/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+config.local.json
