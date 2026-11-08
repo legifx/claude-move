@@ -83,6 +83,10 @@ claude-move --dry-run user@myserver a30a98df
 | `--focus` | Focus the newly created Herdr tab on the destination machine |
 | `--skip-permissions` | Pass `--dangerously-skip-permissions` to the resumed Claude process |
 
+### Moving a session from inside itself
+
+If Claude Code runs `claude-move push <machine> <session>` through its own Bash tool, claude-move notices that it is a child of the Claude process it is about to stop. It then detaches into its own session, prints one line with the log path (`~/.cache/claude-move/last-move.log`) and exits `0`, so the tool call returns. After a short delay (`CLAUDE_MOVE_DETACH_DELAY`, default 3 s) the detached worker stops the source (implicit `--stop`), syncs and resumes on the target. `--dry-run` never detaches; `--attach` is rejected in this mode.
+
 ---
 
 ## Optional Configuration (`~/.config/claude-move/config.json`)
