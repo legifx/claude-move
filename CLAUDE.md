@@ -14,6 +14,7 @@ Move Claude Code sessions between machines — sync working tree, rewrite transc
 - `claude_move/rewrite.py` — verlustfreies, symmetrisches JSONL-/Companion-Pfad-Rewriting
 - `claude_move/herdr_ctl.py` — `herdr`-Steuerung (`local`, `--machine`, Socket oder SSH) + NAT-Relay
 - `claude_move/transfer.py` — Orchestrierung (`stop` → `rsync` → `rewrite` → `.claude.json`-Trust → `herdr` Resume)
+- `claude_move/selfdetach.py` — Self-Move-Erkennung (Elternkette) + Abkoppeln per Double-Fork, Log `~/.cache/claude-move/last-move.log`
 - `claude_move/cli.py` & `bin/claude-move` — CLI-Einstiegspunkt (reine Python-Stdlib)
 
 ## Tests & Installation

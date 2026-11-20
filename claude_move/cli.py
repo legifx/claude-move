@@ -14,6 +14,7 @@ from .discovery import (
     resolve_session,
 )
 from .herdr_ctl import is_herdr_reachable, relay_pull_via_peer_herdr
+from .selfdetach import detach, needs_detach
 from .transfer import MoveOptions, move_session
 
 
@@ -395,6 +396,20 @@ def main(argv: list[str] | None = None) -> int:
         )
         if not chosen:
             return 130
+
+        # Self-move: when run from inside the very Claude session being moved (e.g. via
+        # its Bash tool), stopping the source would kill us too. Continue detached.
+        if needs_detach(chosen.pid, chosen.alive, opts.dry_run, opts.keep_running):
+            if opts.attach:
+                raise RuntimeError(
+                    "--attach cannot be used from inside the session being moved "
+                    "(no terminal is left to attach from)."
+                )
+            # The session is "working" precisely because it is running this command;
+            # invoking claude-move on yourself is explicit consent to end that turn.
+            opts.stop_working = ns.stop = True
+            if detach():
+                return 0
 
         # If destination has no inbound SSH (e.g. pushing from server -> NAT'd workstation),
         # relay via a forwarded Herdr socket so the workstation pulls from here!

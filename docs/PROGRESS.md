@@ -8,6 +8,13 @@ Wer etwas ändert, trägt es **oben im Log** ein.
 
 ## Log
 
+### 2026-11-08 · Fix: Self-Move aus der laufenden Session
+- Gemacht:
+  - Neues Modul `claude_move/selfdetach.py`: erkennt, ob claude-move ein Nachfahre des zu stoppenden Claude-Prozesses ist (`/proc/<pid>/stat`, Fallback `ps -o ppid=`), und koppelt sich dann per Double-Fork + `setsid` ab (stdin `/dev/null`, Ausgabe an `~/.cache/claude-move/last-move.log`, Startverzögerung `CLAUDE_MOVE_DETACH_DELAY`, Schleifenschutz `CLAUDE_MOVE_DETACHED`).
+  - `cli.py`: Push-Pfad koppelt vor Stopp/Relay ab; Self-Move impliziert `--stop`, `--attach` wird abgelehnt, `--dry-run`/`--keep-running` koppeln nie ab.
+  - Tests `tests/test_selfdetach.py`, ADR `0002`.
+- Offen / nächster Schritt: Self-Move einmal im Alltag (Agent verschiebt sich selbst) erproben.
+
 ### 2026-11-03 · v0.1.0 implementiert & getestet
 - Gemacht:
   - Komplettes Python-CLI-Paket (`claude_move/`: `config.py`, `rewrite.py`, `discovery.py`, `herdr_ctl.py`, `transfer.py`, `cli.py`) ohne Drittanbieter-Abhängigkeiten gebaut.
